@@ -14,8 +14,17 @@ if os.path.exists("logo.png"):
 # Input
 query = st.text_input("Ask anything...")
 if st.button("Submit"):
-    st.write("✨ Aura says:", query[::-1])  # Placeholder response
+    import openai
 
+openai.api_key = st.secrets["OPENAI_API_KEY"]
+
+if query:
+    with st.spinner("Thinking..."):
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": query}]
+        )
+        st.success("✨ Aura says: " + response["choices"][0]["message"]["content"])
 # File upload
 file = st.file_uploader("Upload a file (PDF or image)")
 if file:
