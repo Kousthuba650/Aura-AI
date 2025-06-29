@@ -1,7 +1,8 @@
 import streamlit as st
 from PIL import Image
 import os
-
+import openai
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 st.set_page_config(page_title="Aura AI", page_icon="🤖")
 
 st.title("🤖 Aura AI")
